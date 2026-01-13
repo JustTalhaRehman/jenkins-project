@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./product_backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./product_backend/.env
+
+  frontend:
+    build:
+      context: ./product_frontend
+      args:
+        REACT_APP_API_URL: http://backend:5000
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
